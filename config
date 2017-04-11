@@ -1,0 +1,4 @@
+---
+BUNDLE_PATH: "/bundler/gems"
+BUNDLE_BIN: "/bundler/bin"
+
