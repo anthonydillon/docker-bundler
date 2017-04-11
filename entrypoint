@@ -1,0 +1,18 @@
+#! /usr/bin/env sh
+
+set -euo pipefail
+
+# Update gems, if anything's changed
+if [ -f "Gemfile" ]; then
+    GEMFILE_HASH=$(md5sum Gemfile | xargs)
+    if [ ! -f "${HASHFILE}" ] || [ "$(cat ${HASHFILE})" != "$GEMFILE_HASH" ]; then
+        echo "Installing gems..." >> /dev/stderr
+        bundle install  # Install new dependencies
+        echo $GEMFILE_HASH > $HASHFILE
+    fi
+else
+    echo "Gemfile not found - not installing gems" >> /dev/stderr
+fi
+
+$@
+
